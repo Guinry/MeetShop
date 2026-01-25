@@ -7,20 +7,17 @@ import com.meetshop.dto.Result;
 import com.meetshop.entity.Shop;
 import com.meetshop.service.IShopService;
 import com.meetshop.utils.SystemConstants;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-/**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author 虎哥
- * @since 2021-12-22
- */
 @RestController
 @RequestMapping("/shop")
+@Api(tags = "店铺相关接口")
+@Slf4j
 public class ShopController {
 
     @Resource
@@ -32,8 +29,10 @@ public class ShopController {
      * @return 商铺详情数据
      */
     @GetMapping("/{id}")
+    @ApiOperation("根据id查询商铺信息")
     public Result queryShopById(@PathVariable("id") Long id) {
-        return Result.ok(shopService.getById(id));
+        log.info("查询店铺信息：{}", id);
+        return shopService.queryById(id);
     }
 
     /**
